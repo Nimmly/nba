@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('guest',['except'=>'destroy']);
+    }
     public function create()
     {
         return view('login.create');
@@ -15,7 +19,9 @@ class LoginController extends Controller
     {
         if( !auth()->attempt(
             request(['email', 'password'])
-        ))
+        )){
+            return redirect('/login');
+        }
         return redirect('/');
     }
     public function destroy()
