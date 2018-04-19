@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Mail\Verification;
 use Illuminate\Http\Request;
 
 class RegistrationController extends Controller
@@ -29,7 +30,9 @@ class RegistrationController extends Controller
         $user->password = bcrypt(request('password'));
         $user->save();
 
-        auth()->login($user);
-        return redirect('/');
+        \Mail::to($user)->send( new Verification($user) );
+
+        //auth()->login($user);
+        return redirect('/login');
     }
 }

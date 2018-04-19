@@ -6,6 +6,11 @@
             <a class="nav-link" href="/">Teams <span class="sr-only">(current)</span></a>
             @endif
           </li>
+          <li class="nav-item active">
+            @if( Auth()->check())
+            <a class="nav-link" href="/news">News</a>
+            @endif
+          </li>
           <li class="nav-item">
           @if(! Auth()->check())
             <a class="nav-link active" href="/login">Login</a>
