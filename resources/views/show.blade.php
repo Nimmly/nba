@@ -17,4 +17,35 @@
             @endforeach
         </ul>
     @endif
+
+<hr/>
+
+<div>
+<h4>Comments</h4>
+<form method="POST" action="{{ route('comments-team', ['team_id'=> $team->id]) }}">
+
+    {{ csrf_field() }}
+        <div class="form-group">
+
+            <label for="content">Please insert a comment</label>
+            <input id = "content" type= "text" name="content" class= "form-control">
+            @include('partials.error-message', ['fieldTitle' => 'content'])
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+</form>
+
+    @if(count($team->comments))
+    <hr/>
+    <ul class="list-unstyled">
+        @foreach($team->comments as $comment)
+        <li>
+            <p>{{$comment->content}}</p>
+        </li>
+        @endforeach
+    </ul>
+    @endif
+</div>
 @endsection
